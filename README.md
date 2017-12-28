@@ -6,4 +6,3 @@ If you'd like to use this webtask, make sure you setup your own slack bot (withi
 
 ### Reference Material
 * Slack bots: https://api.slack.com/bot-users
-* Webtask secret: https://gitlab.com/olivlabs/react-news-feed-webtask
