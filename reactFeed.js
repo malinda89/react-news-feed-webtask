@@ -34,16 +34,16 @@ const updateTopNews = (dataArr, ctx, cb) => {
   ctx.storage.get((error, data) => {
     if (error) return cb(error);
 
-    const topTen = data && data.topTen ? data.topTen : [];
+    const topThirty = data && data.topThirty ? data.topThirty : [];
 
-    // Check if newly fetched articles exist in the top10 array
+    // Check if newly fetched articles exist in the top30 array
     const newStories = dataArr.filter((article) => {
-      if (!_.some(topTen, { 'id': article.id })) {
+      if (!_.some(topThirty, { 'id': article.id })) {
         return article;
       }
     });
 
-    // Post to slack channel and update top10 array if new items exist
+    // Post to slack channel and update top30 array if new items exist
     if (!_.isEmpty(newStories)) {
       console.log(JSON.stringify(newStories));
       console.log("Post the above to slack");
@@ -53,7 +53,7 @@ const updateTopNews = (dataArr, ctx, cb) => {
         if (err) return cb(err);
 
         // Update news array
-        data = { topTen: newStories.concat(topTen).slice(0, 30) };
+        data = { topThirty: newStories.concat(topThirty).slice(0, 30) };
 
         // Save data to WT storage
         ctx.storage.set(data, (error) => {
